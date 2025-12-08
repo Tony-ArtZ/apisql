@@ -1,0 +1,27 @@
+# Fetch a list of Pokémon and filter by name + limit results.
+
+REQUEST GetPokemon
+  GET https://pokeapi.co/api/v2/pokemon?limit=200
+
+RESPONSE
+  # API returns:
+  # {
+  #   "count": ...,
+  #   "results": [
+  #      { "name": "bulbasaur", "url": "..." },
+  #      { "name": "ivysaur", "url": "..." },
+  #      ...
+  #   ]
+  # }
+
+  FROM body.results
+
+  # Select Pokémon whose name starts with "b"
+  WHERE name =~ "^b"
+
+  SELECT {
+    name,
+    url
+  }
+
+  LIMIT 10

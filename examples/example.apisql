@@ -1,0 +1,26 @@
+# Global variables
+USING
+  token: "my-secret-token"
+  baseUrl: "https://api.example.com"
+  minAge: 21
+
+# Request that fetches users
+REQUEST GetAdults
+  GET {baseUrl}/users
+  HEADERS
+    Authorization: Bearer {token}
+    X-Client: "apisql-demo"
+  CACHE 30
+
+RESPONSE
+  FROM body.users               # body is the JSON from the HTTP response
+  WHERE age >= {minAge}         # use global variable
+  ORDER BY age DESC
+  SELECT {
+    id,
+    name,
+    email,
+    is_senior: age >= 60
+  }
+  LIMIT 10
+
