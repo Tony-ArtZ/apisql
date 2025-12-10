@@ -1,0 +1,57 @@
+{
+  "scopeName": "source.apisql",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#constants"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "match": "#.*$",
+          "name": "comment.line.number-sign.apisql"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "match": "\\b(USING|REQUEST|RESPONSE|GET|POST|PUT|DELETE|PATCH|AND|OR|SELECT|FROM|WHERE|LIMIT)\\b",
+          "name": "keyword.control.apisql"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "begin": "\"",
+          "end": "\"",
+          "name": "string.quoted.double.apisql"
+        },
+        {
+          "begin": "'",
+          "end": "'",
+          "name": "string.quoted.single.apisql"
+        }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "match": "\\b[0-9]+\\b",
+          "name": "constant.numeric.apisql"
+        }
+      ]
+    }
+  }
+}
