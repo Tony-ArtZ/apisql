@@ -66,7 +66,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version: "20"
 
       - name: Download Binaries
         uses: actions/download-artifact@v4
@@ -84,7 +84,7 @@ jobs:
 
       - name: Package Extension
         working-directory: ./vscode-extension
-        run: npx vsce package
+        run: npx @vscode/vsce package
 
       - name: Upload VSIX
         uses: actions/upload-artifact@v4
