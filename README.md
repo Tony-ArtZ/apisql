@@ -22,14 +22,17 @@ We provide a script to build the language server for Linux and Windows (using Mi
 
 1.  **Install Dependencies (Linux)**:
     You may need `mingw-w64` to cross-compile for Windows.
+
     ```bash
     sudo apt-get install mingw-w64
     ```
 
 2.  **Run the Build Script**:
+
     ```bash
     ./build-cross.sh
     ```
+
     This will compile the Rust backend and place the binaries in `vscode-extension/bin`.
 
 3.  **Package the Extension**:

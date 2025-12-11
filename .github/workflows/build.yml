@@ -51,7 +51,7 @@ jobs:
       - name: Upload Binary
         uses: actions/upload-artifact@v4
         with:
-          name: binaries
+          name: binaries-${{ matrix.target }}
           path: ${{ matrix.bin_name }}
           if-no-files-found: error
           retention-days: 1
@@ -71,7 +71,8 @@ jobs:
       - name: Download Binaries
         uses: actions/download-artifact@v4
         with:
-          name: binaries
+          pattern: binaries-*
+          merge-multiple: true
           path: vscode-extension/bin
 
       - name: Verify Binaries
