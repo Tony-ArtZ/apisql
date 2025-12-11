@@ -23,7 +23,7 @@ jobs:
             target: x86_64-pc-windows-msvc
             bin_name: lsp-backend-win32-x64.exe
             executable_name: lsp-backend.exe
-          - os: macos-13
+          - os: macos-latest
             target: x86_64-apple-darwin
             bin_name: lsp-backend-darwin-x64
             executable_name: lsp-backend
