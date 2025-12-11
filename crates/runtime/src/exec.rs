@@ -33,6 +33,23 @@ impl ExecutionRuntime {
         self.run_request(req, resp)
     }
 
+    pub fn fetch_data(&mut self, req: &RequestBlock) -> Result<Json, RuntimeError> {
+        let cache_key = format!("{}:{}", Self::method_to_string(&req.method), req.url);
+        if let Some(body) = self.try_cache(req, &cache_key)? {
+            Ok(body.0)
+        } else {
+            let headers: Vec<(&str, &str)> = req
+                .headers
+                .iter()
+                .map(|h| (h.key.as_str(), h.value.as_str()))
+                .collect();
+
+            let (json, status) = self.http.get_json(&req.url, &headers)?;
+            self.store_cache(req, cache_key, json.clone(), status);
+            Ok(json)
+        }
+    }
+
     fn run_request(
         &mut self,
         req: &RequestBlock,

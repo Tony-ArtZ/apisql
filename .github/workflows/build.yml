@@ -1,0 +1,92 @@
+name: Build and Release Extension
+
+on:
+  push:
+    branches: ["main"]
+    tags: ["v*"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build-backend:
+    name: Build Backend (${{ matrix.target }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            bin_name: lsp-backend-linux-x64
+            executable_name: lsp-backend
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            bin_name: lsp-backend-win32-x64.exe
+            executable_name: lsp-backend.exe
+          - os: macos-13
+            target: x86_64-apple-darwin
+            bin_name: lsp-backend-darwin-x64
+            executable_name: lsp-backend
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            bin_name: lsp-backend-darwin-arm64
+            executable_name: lsp-backend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Build Binary
+        run: cargo build --release --bin lsp-backend --target ${{ matrix.target }}
+
+      - name: Prepare Binary
+        shell: bash
+        run: |
+          cp target/${{ matrix.target }}/release/${{ matrix.executable_name }} ${{ matrix.bin_name }}
+
+      - name: Upload Binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: binaries
+          path: ${{ matrix.bin_name }}
+          if-no-files-found: error
+          retention-days: 1
+
+  package-extension:
+    name: Package VS Code Extension
+    needs: build-backend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Download Binaries
+        uses: actions/download-artifact@v4
+        with:
+          name: binaries
+          path: vscode-extension/bin
+
+      - name: Verify Binaries
+        run: ls -R vscode-extension/bin
+
+      - name: Install Dependencies
+        working-directory: ./vscode-extension
+        run: npm ci
+
+      - name: Package Extension
+        working-directory: ./vscode-extension
+        run: npx vsce package
+
+      - name: Upload VSIX
+        uses: actions/upload-artifact@v4
+        with:
+          name: vscode-extension
+          path: vscode-extension/*.vsix

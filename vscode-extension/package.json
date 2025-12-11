@@ -1,5 +1,6 @@
 {
   "name": "apisql-vscode",
+  "icon": "./images/icon.png",
   "displayName": "ApiSQL",
   "description": "Language support for ApiSQL",
   "version": "0.0.1",
@@ -20,8 +21,8 @@
       {
         "id": "apisql",
         "icon": {
-          "light": "",
-          "dark": ""
+          "light": "./images/icon.png",
+          "dark": "./images/icon.png"
         },
         "aliases": [
           "ApiSQL",
@@ -45,10 +46,11 @@
     "onLanguage:apisql"
   ],
   "scripts": {
-    "vscode:prepublish": "npm run build-server && npm run compile",
+    "vscode:prepublish": "npm run compile",
     "compile": "tsc -b",
     "watch": "tsc -b -w",
-    "build-server": "cd .. && cargo build --release --bin lsp-backend && mkdir -p vscode-extension/bin && cp target/release/lsp-backend vscode-extension/bin/"
+    "build-local": "node build.js",
+    "package": "vsce package"
   },
   "devDependencies": {
     "@types/vscode": "^1.75.0",

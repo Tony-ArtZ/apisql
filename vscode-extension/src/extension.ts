@@ -11,19 +11,48 @@ import {
 let client: LanguageClient;
 
 export function activate(context: ExtensionContext) {
-  // Path to the compiled binary
-  const serverPath = context.asAbsolutePath(path.join("bin", "lsp-backend"));
+  const platform = process.platform;
+  let binaryName = "lsp-backend";
+  if (platform === "win32") {
+    binaryName = "lsp-backend.exe";
+  }
+
+  const arch = process.arch;
+  const platformBinaryName =
+    platform === "win32"
+      ? `lsp-backend-win32-${arch}.exe`
+      : `lsp-backend-${platform}-${arch}`;
+  const platformServerPath = context.asAbsolutePath(
+    path.join("bin", platformBinaryName)
+  );
+
+  const legacyPlatformBinaryName =
+    platform === "win32" ? "lsp-backend-win32.exe" : `lsp-backend-${platform}`;
+  const legacyPlatformServerPath = context.asAbsolutePath(
+    path.join("bin", legacyPlatformBinaryName)
+  );
+
+  const defaultServerPath = context.asAbsolutePath(
+    path.join("bin", binaryName)
+  );
+
+  const fs = require("fs");
+  let serverPath = defaultServerPath;
+  if (fs.existsSync(platformServerPath)) {
+    serverPath = platformServerPath;
+  } else if (fs.existsSync(legacyPlatformServerPath)) {
+    serverPath = legacyPlatformServerPath;
+  }
 
   const serverExecutable: Executable = {
     command: serverPath,
     args: [],
     options: {
-      env: process.env, // Pass environment variables
+      env: process.env,
     },
   };
 
   // FALLBACK
-  const fs = require("fs");
   if (!fs.existsSync(serverPath)) {
     serverExecutable.command = "cargo";
     serverExecutable.args = ["run", "--bin", "lsp-backend", "--quiet"];

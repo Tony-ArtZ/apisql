@@ -4,3 +4,6 @@ src/**
 .gitignore
 tsconfig.json
 **/*.map
+build.js
+*.vsix
+
