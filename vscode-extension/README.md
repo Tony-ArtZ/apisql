@@ -4,7 +4,7 @@
 
 Unlike gRPC or GraphQL which demand server-side integration, ApiSQL is **purely frontend-facing**. Point it at any existing REST endpoint, and you get a structured, type-safe querying experience instantly.
 
-![Live Suggestions Demo](../public/suggestions.gif)
+![ApiSQL Suggestions](https://github.com/Tony-ArtZ/apisql/raw/main/public/suggestions.gif)
 
 ## What Makes ApiSQL Unique
 

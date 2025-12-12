@@ -4,7 +4,7 @@
 
 ApiSQL is a language for querying APIs using SQL-like syntax.
 
-![Live Suggestions Demo](./public/suggestions.gif)
+![ApiSQL Suggestions](https://github.com/Tony-ArtZ/apisql/raw/main/public/suggestions.gif)
 
 ## VS Code Extension
 
