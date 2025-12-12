@@ -4,6 +4,8 @@
 
 ApiSQL is a language for querying APIs using SQL-like syntax.
 
+![Live Suggestions Demo](./public/suggestions.gif)
+
 ## VS Code Extension
 
 The VS Code extension provides syntax highlighting, diagnostics, and autocompletion.
