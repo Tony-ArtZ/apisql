@@ -3,6 +3,7 @@
   "icon": "./images/icon.png",
   "displayName": "ApiSQL",
   "description": "Language support for ApiSQL",
+  "publisher": "TonyArtZ",
   "version": "0.0.1",
   "repository": {
     "type": "git",
