@@ -56,6 +56,76 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
+  build-cli:
+    name: Build CLI (${{ matrix.target }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            bin_name: apisql-linux-x64
+            executable_name: cli
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            bin_name: apisql-win32-x64.exe
+            executable_name: cli.exe
+          - os: macos-latest
+            target: x86_64-apple-darwin
+            bin_name: apisql-darwin-x64
+            executable_name: cli
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            bin_name: apisql-darwin-arm64
+            executable_name: cli
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Build CLI
+        run: cargo build --release --bin cli --target ${{ matrix.target }}
+
+      - name: Prepare Binary
+        shell: bash
+        run: |
+          cp target/${{ matrix.target }}/release/${{ matrix.executable_name }} ${{ matrix.bin_name }}
+
+      - name: Upload CLI Binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: cli-${{ matrix.target }}
+          path: ${{ matrix.bin_name }}
+
+  build-wasm:
+    name: Build WASM Package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - name: Install wasm-pack
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+      - name: Build WASM
+        working-directory: crates/wasm
+        run: wasm-pack build --target nodejs --out-dir pkg
+
+      - name: Upload WASM Package
+        uses: actions/upload-artifact@v4
+        with:
+          name: wasm-package
+          path: crates/wasm/pkg/
+
   package-extension:
     name: Package VS Code Extension
     needs: build-backend
@@ -91,3 +161,35 @@ jobs:
         with:
           name: vscode-extension
           path: vscode-extension/*.vsix
+
+  release:
+    name: Create Release
+    needs: [package-extension, build-cli, build-wasm]
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: vscode-extension
+          path: release_assets
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: cli-*
+          merge-multiple: true
+          path: release_assets
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: wasm-package
+          path: wasm-package
+
+      - name: Zip WASM Package
+        run: zip -r release_assets/apisql-wasm.zip wasm-package
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: release_assets/*
