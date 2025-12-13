@@ -44,11 +44,11 @@ apisql run examples/pokemon.apisql
 ApiSQL is available as an NPM package for use in Node.js or the Browser.
 
 ```bash
-npm install apisql-wasm
+npm install apisql
 ```
 
 ```javascript
-import { run_query } from "apisql-wasm";
+import { run_query } from "apisql";
 // ...
 ```
 

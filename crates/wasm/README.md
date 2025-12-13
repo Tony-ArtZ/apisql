@@ -5,7 +5,7 @@ The WebAssembly bindings for [ApiSQL](https://github.com/Tony-ArtZ/apisql), allo
 ## Installation
 
 ```bash
-npm install apisql-wasm
+npm install apisql
 ```
 
 ## Usage
@@ -13,7 +13,7 @@ npm install apisql-wasm
 ### In the Browser
 
 ```javascript
-import init, { run_query } from "apisql-wasm";
+import init, { run_query } from "apisql";
 
 async function main() {
   await init();
@@ -41,7 +41,7 @@ main();
 ### In Node.js
 
 ```javascript
-const { run_query } = require("apisql-wasm");
+const { run_query } = require("apisql");
 
 const query = `...`;
 // ... usage

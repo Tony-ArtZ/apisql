@@ -4,10 +4,9 @@
   "displayName": "ApiSQL",
   "description": "Language support for ApiSQL",
   "version": "0.0.1",
-  "publisher": "apisql",
   "repository": {
     "type": "git",
-    "url": "https://github.com/apisql/apisql-vscode"
+    "url": "https://github.com/Tony-ArtZ/apisql"
   },
   "engines": {
     "vscode": "^1.75.0"

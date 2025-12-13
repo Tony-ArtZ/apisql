@@ -1,5 +1,5 @@
 [package]
-name = "apisql-wasm"
+name = "apisql"
 version = "0.1.0"
 edition = "2024"
 description = "WASM bindings for ApiSQL - A query language for JSON APIs"
