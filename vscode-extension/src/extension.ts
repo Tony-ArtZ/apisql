@@ -44,6 +44,15 @@ export function activate(context: ExtensionContext) {
     serverPath = legacyPlatformServerPath;
   }
 
+  // Ensure the binary has execute permissions on Unix-like systems
+  if (fs.existsSync(serverPath) && platform !== "win32") {
+    try {
+      fs.chmodSync(serverPath, 0o755);
+    } catch (err) {
+      console.error("Failed to set execute permissions on LSP binary:", err);
+    }
+  }
+
   const serverExecutable: Executable = {
     command: serverPath,
     args: [],
