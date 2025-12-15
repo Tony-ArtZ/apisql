@@ -21,7 +21,7 @@ Unlike gRPC or GraphQL, which require server-side integration, ApiSQL is **purel
 
 ### VS Code Extension
 
-The best way to experience ApiSQL is through the [VS Code Extension](https://marketplace.visualstudio.com/items?itemName=apisql.apisql-vscode).
+The best way to experience ApiSQL is through the [VS Code Extension](https://marketplace.visualstudio.com/items?itemName=TonyArtZ.apisql-vscode).
 
 1.  Install the extension.
 2.  Create a file ending in `.apisql`.
@@ -43,10 +43,10 @@ apisql run examples/pokemon.apisql
 
 ### JavaScript / TypeScript Library
 
-ApiSQL is available as an NPM package for use in Node.js or the Browser.
+ApiSQL is available as an [NPM package](https://www.npmjs.com/package/@tonyartz4/apisql) for use in Node.js or the Browser.
 
 ```bash
-npm install apisql
+npm install @tonyartz4/apisql
 ```
 
 ```javascript
