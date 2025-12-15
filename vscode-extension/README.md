@@ -1,6 +1,6 @@
 # ApiSQL for VS Code
 
-![ApiSQL Logo](https://github.com/Tony-ArtZ/apisql/raw/main/public/banner,png)
+![ApiSQL Logo](https://github.com/Tony-ArtZ/apisql/raw/main/public/banner.png)
 
 **ApiSQL** is a query language that brings SQL's expressive power to REST APIs. Write familiar `SELECT`, `WHERE`, `ORDER BY`, and `JOIN`-like queries against any JSON API—no backend modifications required.
 
