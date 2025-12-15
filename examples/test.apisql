@@ -1,9 +1,0 @@
-REQUEST TestWordsAPI
-GET https://catfact.ninja/fact
-
-RESPONSE
-
-SELECT {
-    fact,
-    length
-}

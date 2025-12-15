@@ -1,9 +1,0 @@
-REQUEST GetPokemon
-  GET https://pokeapi.co/api/v2/pokemon/1?limit=200
-
-RESPONSE
-  SELECT {
-    
-  }
-
-  LIMIT 10
