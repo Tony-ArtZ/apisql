@@ -1,4 +1,4 @@
-![ApiSQL Logo](https://github.com/Tony-ArtZ/apisql/raw/main/public/banner.gif)
+![ApiSQL Logo](https://github.com/Tony-ArtZ/apisql/raw/main/public/banner,png)
 
 # ApiSQL WASM
 

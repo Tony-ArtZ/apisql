@@ -1,6 +1,6 @@
 # ApiSQL
 
-![ApiSQL Logo](https://github.com/Tony-ArtZ/apisql/raw/main/public/banner.gif)
+![ApiSQL Logo](https://github.com/Tony-ArtZ/apisql/raw/main/public/banner,png)
 
 > **Treat the Web like a Database.**
 
