@@ -66,19 +66,19 @@ jobs:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
             bin_name: apisql-linux-x64
-            executable_name: cli
+            executable_name: apisql
           - os: windows-latest
             target: x86_64-pc-windows-msvc
             bin_name: apisql-win32-x64.exe
-            executable_name: cli.exe
+            executable_name: apisql.exe
           - os: macos-latest
             target: x86_64-apple-darwin
             bin_name: apisql-darwin-x64
-            executable_name: cli
+            executable_name: apisql
           - os: macos-latest
             target: aarch64-apple-darwin
             bin_name: apisql-darwin-arm64
-            executable_name: cli
+            executable_name: apisql
 
     steps:
       - uses: actions/checkout@v4
@@ -89,7 +89,7 @@ jobs:
           targets: ${{ matrix.target }}
 
       - name: Build CLI
-        run: cargo build --release --bin cli --target ${{ matrix.target }}
+        run: cargo build --release --bin apisql --target ${{ matrix.target }}
 
       - name: Prepare Binary
         shell: bash

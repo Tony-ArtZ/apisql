@@ -44,7 +44,6 @@ export function activate(context: ExtensionContext) {
     serverPath = legacyPlatformServerPath;
   }
 
-  // Ensure the binary has execute permissions on Unix-like systems
   if (fs.existsSync(serverPath) && platform !== "win32") {
     try {
       fs.chmodSync(serverPath, 0o755);
