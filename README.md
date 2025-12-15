@@ -1,8 +1,10 @@
 # ApiSQL
 
-![ApiSQL Suggestions](https://github.com/Tony-ArtZ/apisql/raw/main/public/suggestions.gif)
+![ApiSQL Logo](https://github.com/Tony-ArtZ/apisql/raw/main/public/banner.gif)
 
 > **Treat the Web like a Database.**
+
+![ApiSQL Suggestions](https://github.com/Tony-ArtZ/apisql/raw/main/public/suggestions.gif)
 
 ApiSQL is a revolutionary query language that brings the expressive power of SQL to REST APIs. It allows you to query any JSON API using familiar syntax (`SELECT`, `WHERE`, `ORDER BY`) without requiring any backend modifications.
 

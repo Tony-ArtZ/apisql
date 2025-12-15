@@ -1,0 +1,7 @@
+{
+  "name": "apisql-wasm-build",
+  "private": true,
+  "scripts": {
+    "build": "wasm-pack build --target nodejs --scope tonyartz4"
+  }
+}
